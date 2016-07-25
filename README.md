@@ -1,4 +1,4 @@
 Docfin Platform
 =========================
 
-Docfin's restful backend
+Docfin's restful backend.
