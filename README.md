@@ -1,4 +1,4 @@
-activator-akka-scala-seed
+Docfin Platform
 =========================
 
-A minimal seed template for an Akka with Scala build 
+Docfin's restful backend
