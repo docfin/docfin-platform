@@ -5,8 +5,8 @@ package com.docfin.rest
   */
 import akka.testkit.TestProbe
 import com.docfin.persistence.dal.TableOperationsAndActions
-import com.docfin.persistence.entities.{Supplier, SuppliersTable}
-import com.docfin.modules.{PersistenceModule, ConfigurationModuleImpl, ActorModule}
+import com.docfin.persistence.entities.{MedicalPractitionerEngagement, _}
+import com.docfin.modules.{ActorModule, ConfigurationModuleImpl, PersistenceModule}
 import akka.actor.ActorRef
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
@@ -21,11 +21,18 @@ trait AbstractRestTest extends Specification with Specs2RouteTest with Mockito{
     val system = AbstractRestTest.this.system
 
     override val suppliersDal = mock[TableOperationsAndActions[SuppliersTable,Supplier]]
+    override val userDal = mock[TableOperationsAndActions[UserTable, User]]
+    override val addressDal = mock[TableOperationsAndActions[AddressTable, Address]]
+    override val personInfoDal = mock[TableOperationsAndActions[PersonInfoTable, PersonInfo]]
+    override val medicalPracticeSpecialityDal = mock[TableOperationsAndActions[MedicalPracticeSpecialityTable, MedicalPracticeSpeciality]]
+    override val medicalPractitionerDal = mock[TableOperationsAndActions[MedicalPractitionerTable, MedicalPractitioner]]
+    override val medicalServiceProviderDal = mock[TableOperationsAndActions[MedicalServiceProviderTable, MedicalServiceProvider]]
+    override val medicalPractitionerEngagementDal = mock[TableOperationsAndActions[MedicalPractitionerEngagementTable, MedicalPractitionerEngagement]]
 
     override def config = getConfig.withFallback(super.config)
   }
 
-  def getConfig: Config = ConfigFactory.empty();
+  def getConfig: Config = ConfigFactory.empty()
 
 
 }

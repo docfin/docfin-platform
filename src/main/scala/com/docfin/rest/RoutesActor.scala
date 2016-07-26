@@ -26,7 +26,6 @@ import com.wordnik.swagger.model.ApiInfo
 import scala.reflect.runtime.universe._
 
 class RoutesActor(modules: Configuration with PersistenceModule) extends Actor with HttpService with LazyLogging {
-  import JsonProtocol._
   import SprayJsonSupport._
 
   def actorRefFactory = context
@@ -65,8 +64,8 @@ class RoutesActor(modules: Configuration with PersistenceModule) extends Actor w
 @Api(value = "/supplier", description = "Operations about suppliers")
 abstract class SupplierHttpService(modules: Configuration with PersistenceModule) extends HttpService {
 
-  import JsonProtocol._
   import SprayJsonSupport._
+  import com.docfin.persistence.entities.JsonProtocol._
 
   implicit val timeout = Timeout(5.seconds)
 

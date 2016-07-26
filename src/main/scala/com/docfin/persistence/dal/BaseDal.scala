@@ -1,10 +1,10 @@
 package com.docfin.persistence.dal
 
-import com.docfin.persistence.entities.{BaseEntity, BaseTable}
 import slick.driver.H2Driver.api._
 import slick.driver.JdbcProfile
 import slick.lifted.{CanBeQueryCondition, Tag}
 import com.docfin.modules.{DbModule, Profile}
+import com.docfin.persistence.entities.{BaseEntity, BaseTable}
 import slick.dbio.{DBIOAction, NoStream}
 
 import scala.concurrent.Future
@@ -33,16 +33,11 @@ class TableOperationsAndActions[T <: BaseTable[A], A <: BaseEntity](tableQ: Tabl
 
 
   def insertAction(rows: Seq[A]) = {
-    tableQ returning tableQ.map(_.id) ++= rows.filter(_.isValid)
+    tableQ returning tableQ.map(_.id) ++= rows
   }
 
   def update(row: A): Future[Int] = {
-    if (row.isValid)
-      db.run(updateAction(row))
-    else
-      Future {
-        0
-      }
+    db.run(updateAction(row))
   }
 
   def update(rows: Seq[A]): Future[Unit] = {
@@ -53,7 +48,7 @@ class TableOperationsAndActions[T <: BaseTable[A], A <: BaseEntity](tableQ: Tabl
     tableQ.filter(_.id === row.id).update(row)
   }
   def updateAction(rows: Seq[A]) = {
-    DBIO.seq((rows.filter(_.isValid).map(r => tableQ.filter(_.id === r.id).update(r))): _*)
+    DBIO.seq((rows.map(r => tableQ.filter(_.id === r.id).update(r))): _*)
   }
 
   def findById(id: Long): Future[Option[A]] = {
