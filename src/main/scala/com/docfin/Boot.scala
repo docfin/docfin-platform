@@ -5,9 +5,10 @@ import akka.io.IO
 import akka.pattern.ask
 import akka.util.Timeout
 import com.docfin.modules._
-import rest.{RoutesActor, SupplierHttpService}
+import rest.RoutesActor
 import spray.can.Http
 import com.docfin.modules.{ActorModuleImpl, PersistenceModuleImpl}
+import com.docfin.service.UserService
 
 import scala.concurrent.duration._
 
@@ -16,7 +17,8 @@ import scala.concurrent.duration._
   */
 object Boot extends App{
   // configuring modules for application, cake pattern for DI
-  val modules = new ConfigurationModuleImpl  with ActorModuleImpl with PersistenceModuleImpl
+  val modules = new ConfigurationModuleImpl  with ActorModuleImpl with DbModule with PersistenceModuleImpl  with ServicesModuleImpl
+
 
   // create and start our service actor
   val service = modules.system.actorOf(Props(classOf[RoutesActor], modules), "routesActor")

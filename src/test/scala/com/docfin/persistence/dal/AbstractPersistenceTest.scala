@@ -1,13 +1,12 @@
 package com.docfin.persistence.dal
 
-import akka.actor.{ActorSystem, Props}
+import com.docfin.model._
 import com.docfin.modules._
-import com.docfin.persistence.entities.{MedicalPractitionerEngagement, MedicalPractitionerEngagementTable, MedicalPractitionerEngagements, MedicalServiceProviders, _}
+import com.docfin.persistence.TableOperationsAndActions
+import org.scalatest.Suite
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
-import slick.lifted.TableQuery
 import spray.testkit.ScalatestRouteTest
-import org.scalatest.Suite
 trait AbstractPersistenceTest extends ScalatestRouteTest{  this: Suite =>
 
 

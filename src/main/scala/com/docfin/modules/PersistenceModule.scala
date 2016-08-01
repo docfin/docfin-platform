@@ -3,12 +3,11 @@ package com.docfin.modules
 /**
   * Created by amit on 7/24/16.
   */
-import akka.actor.{ActorPath, ActorRef, ActorSelection, Props}
-import com.docfin.persistence.dal._
+import com.docfin.model._
+import com.docfin.persistence.TableOperationsAndActions
+import com.docfin.service.UserService
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
-import com.docfin.persistence.entities._
-import slick.lifted.TableQuery
 
 
 trait Profile {
@@ -33,7 +32,9 @@ trait PersistenceModule {
 }
 
 
-trait PersistenceModuleImpl extends PersistenceModule with DbModule{
+
+
+trait PersistenceModuleImpl extends PersistenceModule with DbModule {
   this: Configuration  =>
 
   // use an alternative database configuration ex:
@@ -51,7 +52,10 @@ trait PersistenceModuleImpl extends PersistenceModule with DbModule{
   override val medicalPractitionerDal = new TableOperationsAndActions[MedicalPractitionerTable, MedicalPractitioner](MedicalPractitioners)
   override val medicalServiceProviderDal = new  TableOperationsAndActions[MedicalServiceProviderTable, MedicalServiceProvider](MedicalServiceProviders)
   override val medicalPractitionerEngagementDal = new TableOperationsAndActions[MedicalPractitionerEngagementTable, MedicalPractitionerEngagement](MedicalPractitionerEngagements)
+
+
   val self = this
 
 }
+
 

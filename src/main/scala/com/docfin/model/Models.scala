@@ -1,4 +1,4 @@
-package com.docfin.persistence.entities
+package com.docfin.model
 
 /**
   * Created by amit on 7/24/16.
@@ -63,9 +63,10 @@ class MedicalPracticeSpecialityTable(tag: Tag) extends BaseTable[MedicalPractice
 }
 object MedicalPracticeSpecialities extends TableQuery(new MedicalPracticeSpecialityTable(_))
 
-case class User(id: Option[Long], name: String, personInfoId:Long) extends BaseEntity
+case class User(id: Option[Long], email: String, personInfoId:Long) extends BaseEntity
+case class UserReceived(email: String, firstName: String, lastName: String)
 class UserTable(tag: Tag) extends BaseTable[User](tag, "USERS") {
-  def name = column[String]("NAME")
+  def name = column[String]("EMAIL")
   def personInfoId = column[Long]("PERSON_INFO_ID")
 
   def personInfo = foreignKey("U_PI_FK", personInfoId, PersonInformation)(_.id, onUpdate=ForeignKeyAction.NoAction, onDelete=ForeignKeyAction.NoAction)

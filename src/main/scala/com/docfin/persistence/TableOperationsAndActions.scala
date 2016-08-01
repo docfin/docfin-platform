@@ -1,14 +1,12 @@
-package com.docfin.persistence.dal
+package com.docfin.persistence
 
+import com.docfin.model.{BaseEntity, BaseTable}
+import com.docfin.modules.{DbModule, Profile}
 import slick.driver.H2Driver.api._
 import slick.driver.JdbcProfile
-import slick.lifted.{CanBeQueryCondition, Tag}
-import com.docfin.modules.{DbModule, Profile}
-import com.docfin.persistence.entities.{BaseEntity, BaseTable}
-import slick.dbio.{DBIOAction, NoStream}
+import slick.lifted.CanBeQueryCondition
 
 import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by amit on 7/24/16.
@@ -96,6 +94,16 @@ class TableOperationsAndActions[T <: BaseTable[A], A <: BaseEntity](tableQ: Tabl
   }
 
   def createTableAction() = {
-    DBIO.seq(tableQ.schema.create)
+    DBIO.seq(schema.create)
   }
+
+  def tableQuery : TableQuery[T] = {
+    tableQ
+  }
+
+  def schema = {
+    tableQuery.schema
+  }
+
+
 }

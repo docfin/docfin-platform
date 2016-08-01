@@ -3,8 +3,7 @@ package com.docfin.rest
 /**
   * Created by amit on 7/24/16.
   */
-import com.docfin.persistence.entities.JsonProtocol
-import com.docfin.persistence.entities.{SimpleSupplier, Supplier}
+import com.docfin.model.{SimpleSupplier, Supplier}
 import spray.httpx.SprayJsonSupport
 import spray.http._
 import StatusCodes._
@@ -19,7 +18,7 @@ class RoutesSpec  extends AbstractRestTest {
 
   val modules = new Modules {}
 
-  val suppliers = new SupplierHttpService(modules){
+  /*val suppliers = new SupplierHttpService(modules){
     override def actorRefFactory = system
   }
 
@@ -63,6 +62,6 @@ class RoutesSpec  extends AbstractRestTest {
       }
     }
 
-  }
+  }*/
 
 }

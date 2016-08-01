@@ -1,10 +1,11 @@
 package com.docfin.persistence.dal
 
 import akka.util.Timeout
+import com.docfin.model.Supplier
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfterAll, FunSuite}
-import com.docfin.persistence.entities._
+
 import scala.concurrent.Await
 import scala.concurrent.duration._
 

@@ -4,9 +4,8 @@ package com.docfin.rest
   * Created by amit on 7/24/16.
   */
 import akka.actor.Actor
-import com.wordnik.swagger.annotations._
-import com.docfin.persistence.entities._
-import com.typesafe.scalalogging.LazyLogging
+import com.docfin.model._
+import com.typesafe.scalalogging.{LazyLogging, Logger}
 import spray.httpx.SprayJsonSupport
 import spray.routing._
 import spray.http._
@@ -18,54 +17,68 @@ import scala.util.{Failure, Success}
 import spray.http.StatusCodes._
 import akka.util.Timeout
 import com.docfin.modules._
+import com.docfin.rest.resources.UserResource
+import com.github.swagger.spray.SwaggerHttpService
 
 import scala.concurrent.duration._
-import com.gettyimages.spray.swagger._
-import com.wordnik.swagger.model.ApiInfo
-
 import scala.reflect.runtime.universe._
+import io.swagger.annotations._
 
-class RoutesActor(modules: Configuration with PersistenceModule) extends Actor with HttpService with LazyLogging {
-  import SprayJsonSupport._
+class RoutesActor(modules: ServicesModule) extends Actor with HttpService with LazyLogging {
 
   def actorRefFactory = context
 
   implicit val timeout = Timeout(5.seconds)
 
-  // create table for suppliers if the table didn't exist (should be removed, when the database wasn't h2)
-  modules.suppliersDal.createTable()
+
+
+
+
+  /*val schema = modules.addressDal.schema.createStatements ++ modules.personInfoDal.schema.createStatements ++ modules.userDal.schema.createStatements
+
+  val schemaAsString = schema.mkString("\n")
+
+  logger.info(schemaAsString)*/
+
+
 
   val swaggerService = new SwaggerHttpService {
-    override def apiTypes = Seq(typeOf[SupplierHttpService])
-    override def apiVersion = "2.0"
-    override def baseUrl = "/"
-    override def docsPath = "api-docs"
-    override def actorRefFactory = context
-    override def apiInfo = Some(new ApiInfo("Spray-Slick-Swagger Sample", "A scala rest api.", "TOC Url", "Cláudio Diniz cfpdiniz@gmail.com", "Apache V2", "http://www.apache.org/licenses/LICENSE-2.0"))
-  }
+    implicit def actorRefFactory = context
+    override val apiTypes = Seq(typeOf[UserResource])
+    override val host = "localhost:8080" //the url of your api, not swagger's json endpoint
+    override val basePath = "/"    //the basePath for the API you are exposing
+    override val apiDocsPath = "api-docs" //where you want the swagger-json endpoint exposed
 
-  val suppliers = new SupplierHttpService(modules){
+  }.routes
+
+  val userResource = new UserResource(modules){
     def actorRefFactory = context
   }
 
 
-  def receive = runRoute( suppliers.SupplierPostRoute ~ suppliers.SupplierGetRoute ~ swaggerService.routes ~
+
+
+  def receive = runRoute (
+    userResource.CREATE ~ userResource.READ ~ swaggerService ~
     get {
       pathPrefix("") { pathEndOrSingleSlash {
         getFromResource("swagger-ui/index.html")
       }
       } ~
         getFromResourceDirectory("swagger-ui")
-    })
+    }
+  )
+
 }
 
 
 
+/*
 @Api(value = "/supplier", description = "Operations about suppliers")
 abstract class SupplierHttpService(modules: Configuration with PersistenceModule) extends HttpService {
 
   import SprayJsonSupport._
-  import com.docfin.persistence.entities.JsonProtocol._
+  import com.docfin.rest.JsonProtocol._
 
   implicit val timeout = Timeout(5.seconds)
 
@@ -107,4 +120,4 @@ abstract class SupplierHttpService(modules: Configuration with PersistenceModule
       }
     }
   }
-}
+}*/

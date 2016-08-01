@@ -29,6 +29,6 @@ libraryDependencies ++= {
     "com.typesafe.scala-logging" %% "scala-logging" % "3.1.0",
     "ch.qos.logback" % "logback-classic" % "1.1.3",
     "org.slf4j" % "slf4j-nop" % "1.6.4",
-    "com.gettyimages" %% "spray-swagger" % "0.5.1"
+    "com.github.swagger-spray" %% "swagger-spray" % "0.7.2"
   )
 }

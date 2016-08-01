@@ -3,17 +3,13 @@ package com.docfin.rest
 /**
   * Created by amit on 7/24/16.
   */
-import akka.testkit.TestProbe
-import com.docfin.persistence.dal.TableOperationsAndActions
-import com.docfin.persistence.entities.{MedicalPractitionerEngagement, _}
+import com.docfin.model._
 import com.docfin.modules.{ActorModule, ConfigurationModuleImpl, PersistenceModule}
-import akka.actor.ActorRef
-import com.typesafe.config.Config
-import com.typesafe.config.ConfigFactory
-import akka.testkit.TestActor
+import com.docfin.persistence.TableOperationsAndActions
+import com.typesafe.config.{Config, ConfigFactory}
+import org.specs2.mock.Mockito
 import org.specs2.mutable.Specification
 import spray.testkit.Specs2RouteTest
-import org.specs2.mock.Mockito
 
 trait AbstractRestTest extends Specification with Specs2RouteTest with Mockito{
 
