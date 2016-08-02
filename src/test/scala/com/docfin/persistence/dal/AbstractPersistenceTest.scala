@@ -22,7 +22,6 @@ trait AbstractPersistenceTest extends ScalatestRouteTest{  this: Suite =>
     implicit val profile: JdbcProfile = dbConfig.driver
     implicit val db: JdbcProfile#Backend#Database = dbConfig.db
 
-    override val suppliersDal = new TableOperationsAndActions[SuppliersTable,Supplier](Suppliers)
     override val userDal = new TableOperationsAndActions[UserTable, User](Users)
     override val addressDal = new TableOperationsAndActions[AddressTable, Address](Addresses)
     override val personInfoDal = new TableOperationsAndActions[PersonInfoTable, PersonInfo](PersonInformation)

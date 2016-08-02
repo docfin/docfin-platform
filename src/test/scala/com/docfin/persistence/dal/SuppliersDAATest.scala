@@ -1,5 +1,6 @@
 package com.docfin.persistence.dal
 
+/*
 import akka.util.Timeout
 import com.docfin.model.Supplier
 import org.junit.runner.RunWith
@@ -30,4 +31,4 @@ class SuppliersDalTest extends FunSuite with AbstractPersistenceTest with Before
   override def afterAll: Unit ={
     modules.db.close()
   }
-}
+}*/

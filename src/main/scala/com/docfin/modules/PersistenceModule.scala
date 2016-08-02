@@ -20,7 +20,6 @@ trait DbModule extends Profile{
 }
 
 trait PersistenceModule {
-  val suppliersDal: TableOperationsAndActions[SuppliersTable, Supplier]
   val userDal: TableOperationsAndActions[UserTable, User]
   val addressDal: TableOperationsAndActions[AddressTable, Address]
   val personInfoDal: TableOperationsAndActions[PersonInfoTable, PersonInfo]
@@ -44,7 +43,6 @@ trait PersistenceModuleImpl extends PersistenceModule with DbModule {
   override implicit val profile: JdbcProfile = dbConfig.driver
   override implicit val db: JdbcProfile#Backend#Database = dbConfig.db
 
-  override val suppliersDal = new TableOperationsAndActions[SuppliersTable,Supplier](Suppliers)
   override val userDal = new TableOperationsAndActions[UserTable, User](Users)
   override val addressDal = new TableOperationsAndActions[AddressTable, Address](Addresses)
   override val personInfoDal = new TableOperationsAndActions[PersonInfoTable, PersonInfo](PersonInformation)

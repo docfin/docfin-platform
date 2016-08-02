@@ -16,7 +16,6 @@ trait AbstractRestTest extends Specification with Specs2RouteTest with Mockito{
   trait Modules extends ConfigurationModuleImpl with ActorModule with PersistenceModule {
     val system = AbstractRestTest.this.system
 
-    override val suppliersDal = mock[TableOperationsAndActions[SuppliersTable,Supplier]]
     override val userDal = mock[TableOperationsAndActions[UserTable, User]]
     override val addressDal = mock[TableOperationsAndActions[AddressTable, Address]]
     override val personInfoDal = mock[TableOperationsAndActions[PersonInfoTable, PersonInfo]]

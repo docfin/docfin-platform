@@ -3,7 +3,7 @@ package com.docfin.rest
 /**
   * Created by amit on 7/24/16.
   */
-import com.docfin.model.{SimpleSupplier, Supplier}
+//import com.docfin.model.{SimpleSupplier, Supplier}
 import spray.httpx.SprayJsonSupport
 import spray.http._
 import StatusCodes._

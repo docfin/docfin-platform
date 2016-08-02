@@ -25,7 +25,7 @@ class UserService(modules: PersistenceModule with DbModule ) extends LazyLogging
     logger.info(s"Creating User from $userReceived")
     val createUserAction = for {
       personId <- modules.personInfoDal.insertAction(PersonInfo(None, userReceived.firstName, userReceived.lastName, userReceived.email, None))
-      userId <- modules.userDal.insertAction(User(None, userReceived.email, personId))
+      userId <- modules.userDal.insertAction(User(None, userReceived.email, personId, None))
       user <- modules.userDal.findByIdAction(userId)
     } yield (user)
     modules.db.run(createUserAction)
