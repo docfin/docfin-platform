@@ -16,7 +16,7 @@ class RoutesSpec  extends AbstractRestTest {
 
   def actorRefFactory = system
 
-  val modules = new Modules {}
+  //val modules = new Modules {}
 
   /*val suppliers = new SupplierHttpService(modules){
     override def actorRefFactory = system

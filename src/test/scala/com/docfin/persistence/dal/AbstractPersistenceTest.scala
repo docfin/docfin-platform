@@ -29,6 +29,10 @@ trait AbstractPersistenceTest extends ScalatestRouteTest{  this: Suite =>
     override val medicalPractitionerDal = new TableOperationsAndActions[MedicalPractitionerTable, MedicalPractitioner](MedicalPractitioners)
     override val medicalServiceProviderDal = new  TableOperationsAndActions[MedicalServiceProviderTable, MedicalServiceProvider](MedicalServiceProviders)
     override val medicalPractitionerEngagementDal = new TableOperationsAndActions[MedicalPractitionerEngagementTable, MedicalPractitionerEngagement](MedicalPractitionerEngagements)
+    override val confirmationRequestDal = new TableOperationsAndActions[ConfirmationRequestTable, ConfirmationRequest](ConfirmationRequests)
+    override val medicalInsuranceProviderDal = new TableOperationsAndActions[MedicalInsuranceProviderTable, MedicalInsuranceProvider](MedicalInsuranceProviders)
+    override val medicalInsurancePlanDal = new TableOperationsAndActions[MedicalInsurancePlanTable, MedicalInsurancePlan](MedicalInsurancePlans)
+    override val medicalPractitionerInsuranceAssociationDal = new TableOperationsAndActions[MedicalPractitionerInsuranceAssociationTable, MedicalPractitionerInsuranceAssociation](MedicalPractitionerInsuranceAssociations)
 
     val self = this
 
