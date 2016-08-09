@@ -31,17 +31,17 @@ class QueryDslSpec extends JavaTokenParsers{
 
   def selectionExpr: Parser[Any] = pathElem ~ rep("," ~ (pathElem | aggregationElem))
   def filterExpr: Parser[Any] = filterElem  ~ rep( logicalOperatorToken ~ filterExpr)
-  def filterExprGroup: Parser[Any] = "(" ~ filterExpr ~ ")"
-  def compositeFilterExpr: Parser[Any] = (filterExpr | filterExprGroup) ~ rep( logicalOperatorToken ~ compositeFilterExpr)
+  def filterGroupExpr: Parser[Any] = "(" ~ filterExpr ~ ")"
+  def compositeFilterExpr: Parser[Any] = (filterExpr | filterGroupExpr) ~ rep( logicalOperatorToken ~ compositeFilterExpr)
 
 
-  def jobSpecExpr = selectionExpr ~ opt("where" ~ compositeFilterExpr)
+  def queryExpr = selectionExpr ~ opt("where" ~ compositeFilterExpr)
 }
 
 object FasJobSpecParser extends QueryDslSpec{
 
   def main(args: Array[String]): Unit ={
     println("input: "+ args(0))
-    println("output: "+ parseAll(jobSpecExpr, args(0)))
+    println("output: "+ parseAll(queryExpr, args(0)))
   }
 }
